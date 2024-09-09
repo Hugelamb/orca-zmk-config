@@ -21,4 +21,4 @@ include:
   - board: orca_left
     artifact-name: orca_left
   - board: orca_right
-      artifact-name: orca_right
+    artifact-name: orca_right
