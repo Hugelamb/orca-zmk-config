@@ -13,19 +13,6 @@
 
 
 / {
-    model = "orca";
-    compatible = "orca";
-    chosen {
-        zephyr,code-partition = &code_partition;
-		zephyr,sram = &sram0;
-		zephyr,flash = &flash0;
-		zephyr,display = &ls0xx;
-		zmk,kscan = &kscan;
-		zmk,matrix_transform = &transform;
-		zmk,battery = &vbatt;
-		zephyr,console = &cdc_acm_uart;
-        // zmk,underglow = &led_strip;
-    };
 
     kscan: kscan {
 		compatible = "zmk,kscan-gpio-direct";
