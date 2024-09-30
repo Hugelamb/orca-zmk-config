@@ -22,3 +22,5 @@ include:
     artifact-name: orca_left
   - board: orca_right
     artifact-name: orca_right
+  - board: orca_reset
+    artifact-name: orca_reset

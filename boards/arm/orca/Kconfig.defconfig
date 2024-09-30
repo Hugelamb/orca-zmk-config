@@ -3,7 +3,8 @@ if BOARD_ORCA_LEFT
 
 config ZMK_SPLIT_BLE_ROLE_CENTRAL
     default y
-    
+config ZMK_USB
+	default y
 endif
 
 config ZMK_SPLIT
@@ -28,8 +29,7 @@ config BT_CTLR
 config ZMK_BLE
 	default y
 
-config ZMK_USB
-	default y
+
 
 # display definitions
 

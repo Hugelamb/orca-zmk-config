@@ -10,3 +10,5 @@ For the right half:
 
 For the left half:
  west build -d build/left -b orca_left -- -DZMK_CONFIG="C:/Users/Hugh/projects/orca-zmk-config"
+
+If you wish to build with the zmk-helpers module (or any other module),append the following to your west build command: -DZMK_EXTRA_MODULES="C:/Users/hughr/projects/zmk-helpers", change the path as necessary

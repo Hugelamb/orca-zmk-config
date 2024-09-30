@@ -37,7 +37,7 @@ CONFIG_FLASH_MAP=y
 # troubleshooting
 # CONFIG_GPIO_HOGS=y
 # Enable logging over USB (default n)
-CONFIG_ZMK_USB_LOGGING=y
+# CONFIG_ZMK_USB_LOGGING=y
 
 # CONFIG_ZMK_RGB_UNDERGLOW=y
 # # Use the STRIP config specific to the LEDs you're using
