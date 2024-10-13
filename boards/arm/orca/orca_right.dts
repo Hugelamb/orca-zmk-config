@@ -17,7 +17,6 @@
     kscan: kscan {
 		compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
-		label = "KSCAN";
 
         input-gpios
             = <&gpio1  6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>  // 1
@@ -48,46 +47,3 @@
     col-offset = <17>;
 };
 
-&gpio0 {
-	status = "okay";
-    // troubleshoot {
-    //     gpio-hog;
-    //     gpios = <9 GPIO_DISCONNECTED>;
-    // };
-};
-
-&usbd {
-  status = "okay";
-  compatible = "nordic,nrf-usbd";
-  cdc_acm_uart: cdc_acm_uart {
-    compatible = "zephyr,cdc-acm-uart";
-    label = "CDC_ACM_0";
-  };
-};
-
-&flash0 {
-	/*
-	 * For more information, see:
-	 * http://docs.zephyrproject.org/latest/devices/dts/flash_partitions.html
-	 */
-	partitions {
-		compatible = "fixed-partitions";
-		#address-cells = <1>;
-		#size-cells = <1>;
-
-		sd_partition: partition@0 {
-			reg = <0x00000000 0x00001000>;
-		};
-		code_partition: partition@1000 {
-			reg = <0x00001000 0x000d3000>;
-		};
-
-		storage_partition: partition@d4000 {
-			reg = <0x000d4000 0x00020000>;
-		};
-
-		boot_partition: partition@f4000 {
-			reg = <0x000f4000 0x0000c000>;
-		};
-	};
-};
