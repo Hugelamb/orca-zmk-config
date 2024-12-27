@@ -7,10 +7,13 @@ Then run the following to build the boards found within this repository's config
 
 For the right half:
  west build -d build/right -b orca_right -- -DZMK_CONFIG="C:/Users/Hugh/projects/orca-zmk-config"
-
+# Linux (Arch) (without ZMK Studio Support)
+west build -p -d build/right -b orca_right -- -DZMK_CONFIG="/home/hug/projects/zmk-configs/orca-zmk-config" -DZMK_EXTRA_MODULES="/home/hug/projects/zmk-configs/zmk-includes"
 For the left half:
- west build -d build/left -b orca_left -- -DZMK_CONFIG="C:/Users/Hugh/projects/orca-zmk-config"
-
+# Windows
+west build -d build/left -b orca_left -- -DZMK_CONFIG="C:/Users/Hugh/projects/orca-zmk-config"
+# Linux (Arch) (without ZMK Studio Support)
+west build -p -d build/left -b orca_left -- -DZMK_CONFIG="/home/hug/projects/zmk-configs/orca-zmk-config" -DZMK_EXTRA_MODULES="/home/hug/projects/zmk-configs/zmk-includes"
 ## EXTERNAL MODULES
 
 This config requires the following ext modules:
