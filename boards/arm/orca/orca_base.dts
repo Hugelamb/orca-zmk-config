@@ -176,7 +176,7 @@
 	};
 };
 
-&usbd {
+zephyr_udc0: &usbd {
     status = "okay";
     compatible = "nordic,nrf-usbd";
     cdc_acm_uart: cdc_acm_uart {
