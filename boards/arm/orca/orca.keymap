@@ -114,6 +114,7 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 &lt {
     flavor = "balanced";
     tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
 };
 
 &caps_word {
@@ -165,7 +166,12 @@ ZMK_HOLD_TAP(lt_spc,
         bindings = <BINDING1>, <BINDING2>; \
     )
 
-SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+// SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
+
+ZMK_MOD_MORPH(spc_morph,
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    bindings = <&kp SPACE>,<&dot_spc>;
+)
 ZMK_MACRO(dot_spc,
     wait-ms = <0>;
     tap-ms = <5>;
@@ -212,7 +218,7 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               &lt_spc NAV 0 &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
+    X_LH                                               &lt NAV 0     &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
@@ -227,7 +233,7 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LB     &kp Z         &kp X         &kp C         &kp D         &kp V            X_MB    &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH         X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               &lt_spc NAV 0 &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
+    X_LH                                               &lt NAV 0     &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
     		>;
         };
@@ -321,7 +327,7 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               &smrt_shft    &kp SPC          X_MH    &kp RET       &kp BSPC                                                   X_RH
+    X_LH                                               &kp SPC       &kp RET          X_MH    SMART_NUM     &smrt_shft                                                 X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
