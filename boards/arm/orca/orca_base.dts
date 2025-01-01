@@ -64,7 +64,7 @@
 		zmk,battery = &vbatt;
 		zephyr,console = &cdc_acm_uart;
         zmk,physical-layout = &orca_34key_layout;
-        zmk,transform = 
+        // zmk,transform = 
         // zmk,matrix-transform = &default_transform;
         // zmk,underglow = &led_strip;
     };
