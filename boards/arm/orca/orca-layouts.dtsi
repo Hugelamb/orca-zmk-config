@@ -1,7 +1,10 @@
+#include <physical_layouts.dtsi>
+
 / {
-    orca_34key_layout: orca_34key_layout{
+    orca_34key_layout: orca_34key_layout {
         compatible = "zmk,physical-layout";
         display-name = "5 Column";
+        
 
         keys  //                     w   h    x    y     rot    rx    ry
             = <&key_physical_attrs 100 100    0   37       0     0     0>

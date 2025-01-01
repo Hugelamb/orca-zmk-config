@@ -9,6 +9,12 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <dt-bindings/led/led.h>
 
+// layout for ZMK STUDIO
+#include "orca-layouts.dtsi"
+
+&orca_34key_layout {
+    transform = <&default_transform>;
+};
 // Display Pins
 &pinctrl {
     spi0_default: spi0_default {
@@ -55,9 +61,11 @@
 		zephyr,flash = &flash0;
 		zephyr,display = &ls0xx;
 		zmk,kscan = &kscan;
-		zmk,matrix_transform = &transform;
 		zmk,battery = &vbatt;
 		zephyr,console = &cdc_acm_uart;
+        zmk,physical-layout = &orca_34key_layout;
+        zmk,transform = 
+        // zmk,matrix-transform = &default_transform;
         // zmk,underglow = &led_strip;
     };
 
@@ -86,7 +94,7 @@
     };
 
 #define K(n) RC(0,n)
-	transform: transform {
+	default_transform: transform {
 		compatible = "zmk,matrix-transform";
 		columns = <10>;
 		rows = <4>;
@@ -169,12 +177,12 @@
 };
 
 &usbd {
-  status = "okay";
-  compatible = "nordic,nrf-usbd";
-  cdc_acm_uart: cdc_acm_uart {
-    compatible = "zephyr,cdc-acm-uart";
-    label = "CDC_ACM_0";
-  };
+    status = "okay";
+    compatible = "nordic,nrf-usbd";
+    cdc_acm_uart: cdc_acm_uart {
+        compatible = "zephyr,cdc-acm-uart";
+        label = "CDC_ACM_0";
+    };
 };
 
 &flash0 {

@@ -15,7 +15,7 @@
 #include "zmk-includes/helper.h"
 #include "zmk-includes/34.h"
 #include <behaviors/num_word.dtsi>  // add num_word behaviour by urob, from https://github.com/urob/zmk-auto-layer.git repository
-// #include "orca-layouts.dtsi"     // uncomment once the config supports ZMK Studio 
+#include "orca-layouts.dtsi"     // uncomment once the config supports ZMK Studio 
 // Unicode combos
 #include "zmk-includes/greek.dtsi"
 #include "zmk-includes/math.dtsi"
