@@ -5,6 +5,10 @@ config ZMK_SPLIT_BLE_ROLE_CENTRAL
     default y
 config ZMK_USB
 	default y
+
+# debugging of studio_locked
+config ZMK_STUDIO_LOCKING
+    default n
 endif
 
 config ZMK_SPLIT
