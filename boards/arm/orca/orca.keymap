@@ -180,14 +180,14 @@ ZMK_MACRO(dot_spc,
 
 
 / {
-    behaviors {
-        skapp: sticky_key_app_switcher {
-            compatible = "zmk,behaviour-sticky-key";
-            #binding-cells = <1>;
-            bindings = <&kp>;
-            release-after-ms = <900>;
-        };
-    };
+   // behaviors {
+   //     skapp: sticky_key_app_switcher {
+   //         compatible = "zmk,behaviour-sticky-key";
+   //         #binding-cells = <1>;
+   //         bindings = <&kp>;
+   //         release-after-ms = <900>;
+   //     };
+   // };
 
     // macros
     // macros {
