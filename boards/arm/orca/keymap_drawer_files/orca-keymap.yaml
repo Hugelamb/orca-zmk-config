@@ -1,0 +1,247 @@
+layers:
+  DEF:
+  - Q
+  - W
+  - E
+  - R
+  - T
+  - Y
+  - U
+  - I
+  - O
+  - P
+  - '&hgl LGUI A'
+  - '&hml LALT S'
+  - '&hml LCTRL D'
+  - '&hml LSHFT F'
+  - G
+  - H
+  - '&hmr RSHFT J'
+  - '&hmr LCTRL K'
+  - '&hmr LALT L'
+  - '&hgr LGUI SEMI'
+  - Z
+  - X
+  - C
+  - V
+  - B
+  - N
+  - M
+  - ','
+  - .
+  - /
+  - {t: SPACE, h: NAV}
+  - {t: RET, h: SYM}
+  - '&smart_num 3 0'
+  - '&smrt_shft'
+  COL_DH:
+  - Q
+  - W
+  - F
+  - P
+  - B
+  - J
+  - L
+  - U
+  - Y
+  - ;
+  - '&hgl LGUI A'
+  - '&hml LALT R'
+  - '&hml LCTRL S'
+  - '&hml LSHFT T'
+  - G
+  - M
+  - '&hmr RSHFT N'
+  - '&hmr LCTRL E'
+  - '&hmr LALT I'
+  - '&hgr LGUI O'
+  - Z
+  - X
+  - C
+  - D
+  - V
+  - K
+  - H
+  - ','
+  - .
+  - /
+  - {t: SPACE, h: NAV}
+  - {t: RET, h: SYM}
+  - '&smart_num 3 0'
+  - '&smrt_shft'
+  SYM:
+  - '!'
+  - '@'
+  - '#'
+  - $
+  - '%'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - +
+  - '='
+  - _
+  - '-'
+  - ^
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''''
+  - '|'
+  - '*'
+  - '&'
+  - '"'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  NUM:
+  - /
+  - '7'
+  - '8'
+  - '9'
+  - '`'
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - '0'
+  - '4'
+  - '5'
+  - '6'
+  - .
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ;
+  - '1'
+  - '2'
+  - '3'
+  - \
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  NAV:
+  - Alt+F4
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - VOL UP
+  - PG UP
+  - {t: BSPC, h: Ctl+BSPC}
+  - UP
+  - {t: DEL, h: Ctl+DEL}
+  - HOME
+  - LGUI
+  - LALT
+  - LCTRL
+  - {t: TAB, h: LSHFT}
+  - VOL DN
+  - PG DN
+  - LEFT
+  - DOWN
+  - RIGHT
+  - END
+  - Ctl+F4
+  - Ctl+Sft+TAB
+  - Ctl+TAB
+  - Sft+INS
+  - ''
+  - INS
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  FUN:
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - AC REDO
+  - AC COPY
+  - VOL UP
+  - ''
+  - ''
+  - LGUI
+  - LALT
+  - LCTRL
+  - LSHFT
+  - F11
+  - AC UNDO
+  - AC PASTE
+  - VOL DN
+  - ''
+  - ''
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - CAPS
+  - PREV
+  - PP
+  - NEXT
+  - {t: SYS, h: toggle}
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  SYS:
+  - ''
+  - ''
+  - ''
+  - OUT BLE
+  - OUT USB
+  - BT PRV
+  - BT NXT
+  - ''
+  - ''
+  - '&studio_unlock'
+  - PWR
+  - ''
+  - ''
+  - BRI INC
+  - ''
+  - {t: BT, h: '0'}
+  - {t: BT, h: '1'}
+  - {t: BT, h: '2'}
+  - {t: BT, h: '3'}
+  - {t: BT, h: '4'}
+  - BT CLR
+  - ''
+  - ''
+  - BRI DEC
+  - ''
+  - EP OFF
+  - EP ON
+  - ''
+  - {t: COL_DH, h: toggle}
+  - {t: DEF, h: toggle}
+  - ''
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - ''
+  OVERCOOKED: [Q, W, E, R, T, Y, U, I, O, P, A, S, D, F, G, H, J, K, L, ;, Z, X, C, V, B, N, M, ',', ., /, SPC, RET, '&smart_num 3 0', '&smrt_shft']

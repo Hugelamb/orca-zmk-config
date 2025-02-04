@@ -114,7 +114,7 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 &lt {
     flavor = "balanced";
     tapping-term-ms = <200>;
-    //quick-tap-ms = <QUICK_TAP_MS>;
+    quick-tap-ms = <QUICK_TAP_MS>;
 };
 
 &caps_word {
@@ -180,14 +180,14 @@ ZMK_MACRO(dot_spc,
 
 
 / {
-   // behaviors {
-   //     skapp: sticky_key_app_switcher {
-   //         compatible = "zmk,behaviour-sticky-key";
-   //         #binding-cells = <1>;
-   //         bindings = <&kp>;
-   //         release-after-ms = <900>;
-   //     };
-   // };
+    behaviors {
+        skapp: sticky_key_app_switcher {
+            compatible = "zmk,behaviour-sticky-key";
+            #binding-cells = <1>;
+            bindings = <&kp>;
+            release-after-ms = <900>;
+        };
+    };
 
     // macros
     // macros {
@@ -358,3 +358,127 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
     // X_LH     X_MH    X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
+// This file has been taken from urob's zmk-config
+// original can be found here: https://github.com/urob/zmk-config/blob/main/config/combos.dtsi
+
+// The user must ensure that any combos they wish to implement mention layers that exist in their keymap
+/*                KEY POSITIONS
+
+  ╭─────────────────────╮ ╭─────────────────────╮
+  │ LT4 LT3 LT2 LT1 LT0 │ │ RT0 RT1 RT2 RT3 RT4 │
+  │ LM4 LM3 LM2 LM1 LM0 │ │ RM0 RM1 RM2 RM3 RM4 │
+  │ LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
+  ╰───────────╮ LH1 LH0 │ │ RH0 RH1 ╭───────────╯
+              ╰─────────╯ ╰─────────╯ */
+// ensure all layers mentioned here have been defined in the .keymap file
+#ifndef DEF
+    #define DEF 0
+#endif
+#ifndef COL_DH
+    #define COL_DH 1
+#endif
+#ifndef SYM
+    #define SYM 2       // Commonly used symbols
+#endif
+#ifndef NAV
+    #define NAV 3       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
+#endif
+#ifndef FUN
+    #define FUN 4       // F keys, print screen, insert, etc.
+#endif
+#ifndef SYS
+    #define SYS 5   
+#endif
+// Define user keymap layers (layers for character combos)
+
+#define MAPS DEF COL_DH 
+
+// Timeout terms (ms) for the combo (smaller value == harder to trigger, kp's must be more synchronized)
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+// the following 'IDLE' definitions specify a time in which no non-combo keys can be pressed
+// if any non-modifier key is pressed in this time BEFORE a key in the combo, the combo will not trigger
+
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 50
+
+/* Left hand combos */
+ZMK_COMBO(lpar, &kp LPAR, LM2 LM1, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)  // left parenthesis: (
+ZMK_COMBO(lbrk, &kp LBKT, LM3 LM2, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)  // left bracket (+ shift for left brace): [ ( { )
+ZMK_COMBO(bslh, &kp BSLH, LB4 LB3, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW) // backslash
+ZMK_COMBO(esc,  &kp ESC,  LT3 LT2, MAPS, COMBO_TERM_FAST, COMBO_IDLE_FAST) // escape
+ZMK_COMBO(tld,  &kp TILDE,LT4 LT3, MAPS, COMBO_TERM_FAST, COMBO_IDLE_FAST) // tilde 
+
+
+/* right hand combos*/
+ZMK_COMBO(rpar, &kp RPAR, RM2 RM1, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)  // right parenthesis
+ZMK_COMBO(rbrk, &kp RBKT, RM3 RM2, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)  // right bracket/brace
+ZMK_COMBO(fslh,  &kp FSLH, RM2 RB2, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW) // forward slash
+ZMK_COMBO(bslh, &kp BSLH, RT4 RT3, MAPS, COMBO_TERM_SLOW, COMBO_IDLE_SLOW) // backslash
+
+// Layer Shifts
+ZMK_COMBO(col2def, &to DEF, LM4 RM4, COL_DH, COMBO_TERM_FAST, COMBO_IDLE_FAST) // return to default qwerty layout from col_dh layer
+ZMK_COMBO(def2col, &to COL_DH, LM4 RM4, DEF, COMBO_TERM_FAST, COMBO_IDLE_FAST) // switch to col_dh from default layer
+/* NAV Layer combos */
+/* Left hand combos */
+ZMK_COMBO(d_lt, D_LT, LT3 LT2, NAV, COMBO_TERM_FAST, COMBO_IDLE_FAST) // switch to desktop on left
+ZMK_COMBO(d_rt, D_RT, LT2 LT1, NAV, COMBO_TERM_FAST, COMBO_IDLE_FAST) // switch to desktop on right
+
+/* Right hand combos */
+ZMK_COMBO(rw, &kp C_RW, RB1 RB2, NAV, COMBO_TERM_FAST, COMBO_IDLE_FAST) // rewind
+ZMK_COMBO(ff, &kp C_FF, RB2 RB3, NAV, COMBO_TERM_FAST, COMBO_IDLE_FAST) // fast forward
+
+
+
+/* Horizontal combos - left hand */
+// ZMK_COMBO(esc,   &kp ESC,      LT3 LT2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(ret,   &kp RETURN,   LT2 LT1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(mouse, &smart_mouse, LT3 LT1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// Combos overlapping HRMs are set up as hold-taps themselves to allow for instantaneous
+// chording of mods. Custom hold-tap instances can be bootstrapped on the go using the
+// 8-argument version of ZMK_COMBO defined in base.keymap.
+// ZMK_COMBO(tab,   &hml LS(LALT)TAB, LM3 LM2, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(ldr,   &leader,      LM2 LM1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, LS(LCTRL),    KEYS_R)
+// ZMK_COMBO(ldrsh, &leader_sft,  LM3 LM2 LM1, DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, LS(LC(LALT)), KEYS_R)
+
+// ZMK_COMBO(cut,   &kp LC(X),    LB3 LB1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(copy,  &kp LC(INS),  LB3 LB2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(paste, &kp LS(INS),  LB2 LB1,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// /* Horizontal combos - right hand */
+// ZMK_COMBO(bspc,  &kp BSPC,     RT1 RT2,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(del,   &kp DEL,      RT2 RT3,     DEF NAV NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// ZMK_COMBO(lpar,  &lpar_lt,     RM1 RM2,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(LCTRL),    KEYS_L)
+// ZMK_COMBO(rpar,  &rpar_gt,     RM2 RM3,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST, RS(LALT),     KEYS_L)
+// ZMK_COMBO(lt,    &kp LT,       RM1 RM2,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(gt,    &kp GT,       RM2 RM3,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// ZMK_COMBO(lbkt,  &kp LBKT,     RB1 RB2,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(rbkt,  &kp RBKT,     RB2 RB3,     DEF     NUM, COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(lbrc,  &kp LBRC,     RB1 RB2,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+// ZMK_COMBO(rbrc,  &kp RBRC,     RB2 RB3,         NAV    , COMBO_TERM_FAST, COMBO_IDLE_FAST)
+
+// /* Vertical combos - left hand */
+// ZMK_COMBO(at,    &kp AT,       LT3 LM3,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(hash,  &kp HASH,     LT2 LM2,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(dllr,  &kp DLLR,     LT1 LM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(prcnt, &kp PRCNT,    LT0 LM0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+
+// ZMK_COMBO(grave, &kp GRAVE,    LM3 LB3,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(bslh,  &kp BSLH,     LM2 LB2,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(equal, &kp EQUAL,    LM1 LB1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(tilde, &kp TILDE,    LM0 LB0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+
+// /* Vertical combos - right hand */
+// ZMK_COMBO(caret, &kp CARET,    RT0 RM0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(plus,  &kp PLUS,     RT1 RM1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(star,  &kp STAR,     RT2 RM2,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(amps,  &kp AMPS,     RT3 RM3,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+
+// ZMK_COMBO(under, &kp UNDER,    RM0 RB0,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(minus, &kp MINUS,    RM1 RB1,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(fslh,  &kp FSLH,     RM2 RB2,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
+// ZMK_COMBO(pipe,  &kp PIPE,     RM3 RB3,     DEF NAV NUM, COMBO_TERM_SLOW, COMBO_IDLE_SLOW)
