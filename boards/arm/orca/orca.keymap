@@ -17,8 +17,10 @@
 #include <behaviors/num_word.dtsi>  // add num_word behaviour by urob, from https://github.com/urob/zmk-auto-layer.git repository
 #include "orca-layouts.dtsi"     // uncomment once the config supports ZMK Studio 
 // Unicode combos
-#include "zmk-includes/greek.dtsi"
+//#include "zmk-includes/greek.dtsi"
 #include "zmk-includes/math.dtsi"
+#include "zmk-helpers/unicode-chars/german.dtsi"
+#include "zmk-helpers/unicode-chars/greek.dtsi"
 
 // use helper macros to define left and right hand positions
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LM0 LM1 LM2 LM3 LM4 LB0 LB1 LB2 LB3 LB4  // left-hand keys
@@ -66,17 +68,19 @@ MAKE_HR_GUI(hgr, &kp, &kp,KEYS_L THUMBS) // right-hand GUI
 // Layer defines
 #define DEF 0
 #define COL_DH 1
-#define SYM 2       // Commonly used symbols
-#define NUM 3
-#define NAV 4       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
-#define FUN 5       // F keys, print screen, insert, etc.
-#define SYS 6       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
-#define HLW 7
-#define StS 8
+#define GME 2       // Gaming Layer, QWERTY with home row mods disabled.
+#define COLTYPE 3   // Colemak DH Gaming Layer for Epistory typing tool.
+#define SYM 4       // Commonly used symbols
+#define NUM 5
+#define NAV 6       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
+#define FUN 7       // F keys, print screen, insert, etc.
+#define SYS 8       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
 // #define MOU 6
 // Conditional layer change
 ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 
+// HYPR key for hyprland keybinds 
+#define HYPR        LG(LA(LS(LCTRL)))   // GUI + ALT + SHIFT + CTRL = HYPR
 // NAV Layer macros
 #define NAV_BSPC    &mt LC(BSPC) BSPC   // tap: backspace | long-tap: delete word backwards
 #define NAV_DEL     &mt LC(DEL) DEL     // tap: delete | long-tap: delete word forwards
@@ -92,10 +96,6 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 // #define EP &ext_power   // shorten keybind
 #define ON &ext_power EP_ON 
 #define OFF &ext_power EP_OFF
-#define CCOPY C_AC_COPY
-#define CPASTE C_AC_PASTE
-#define CUNDO C_AC_UNDO
-#define CREDO C_AC_REDO
 
 // #define SWP_POS 
 // behaviour customization
@@ -121,6 +121,8 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
     continue-list = <UNDERSCORE MINUS BSPC DEL N1 N2 N3 N4 N5 N6 N7 N8 N9 N0>;
 };
 
+// include extra combo and key definitions
+#include "leader.dtsi"
 #include "zmk-includes/combos.dtsi"
 #include "zmk-includes/leaders.dtsi"
 #include "extra_keys.h"
@@ -149,7 +151,7 @@ ZMK_MOD_MORPH(bs_del,
 
 ZMK_MOD_MORPH(smrt_shft,
     bindings = <&sk LSFT>, <&caps_word>;
-    mods = <(MOD_RSFT)>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
 )
 // tap: space | shift + tap: dot -> space -> sticky shift | hold: activate layer
 ZMK_HOLD_TAP(lt_spc,
@@ -206,15 +208,13 @@ ZMK_MACRO(dot_spc,
         */
     keymap {
         compatible = "zmk,keymap";
-
-        default_layer {
-            display-name = "DEF";
-
+        default_layer { // Layer 0
+            display-name = "DEF"; 
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
     X_LT     &kp Q         &kp W         &kp E         &kp R         &kp T            X_MT    &kp Y         &kp U         &kp I         &kp O         &kp P            X_RT                                                         
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LM     &hgl LGUI A   &hml LALT S   &hml LCTRL D  &hml LSHFT F  &kp G            X_MM    &kp H         &hmr RSHFT J  &hmr LCTRL K  &hmr LALT L   &hgr LGUI SEMI   X_RM
+    X_LM     &hgl LGUI A   &hml LALT S   &hml LCTRL D  &hml LSHFT F  &hml HYPR G      X_MM    &hmr HYPR H   &hmr RSHFT J  &hmr LCTRL K  &hmr LALT L   &hgr LGUI SEMI   X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
@@ -223,7 +223,7 @@ ZMK_MACRO(dot_spc,
             >;
         };
 
-        cole_layer {
+        cole_layer { // Layer 1
             display-name = "COL_DH";    // Colemak mod DH keymap
 			bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -237,8 +237,36 @@ ZMK_MACRO(dot_spc,
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
     		>;
         };
+        gaming_layer { // Layer 2
+            display-name = "GME"; 
+            bindings = <
+/* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
+    X_LT     &kp Q         &kp W         &kp E         &kp R         &kp T            X_MT    &kp Y         &kp U         &kp I         &kp O         &kp P            X_RT                                                         
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LM     &kp A         &kp S         &kp D         &kp F         &kp G            X_MM    &kp H         &kp J         &kp K         &kp L         &kp SEMI         X_RM
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
+/* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
+    X_LH                                               &kp SPACE     &lt FUN RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
+/* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
+            >;
+        };
+        colemak_typing_layer { // Layer 3
+            display-name = "EPISTORY";
+            bindings = <
+/* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
+    X_LT     &kp Q         &kp W         &kp F         &kp P         &kp B            X_MT    &kp J         &kp L         &kp U         &kp Y         &kp SEMI         X_RT                                                         
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LM     &kp A         &kp R         &kp S         &kp T         &kp G            X_MM    &kp M         &kp N         &kp E         &kp I         &kp O            X_RM
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LB     &kp Z         &kp X         &kp C         &kp D         &kp V            X_MB    &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH         X_RB
+/* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
+    X_LH                                               &lt NAV SPACE &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
+/* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
+    		>;
+        };
 
-        symbol_layer {
+        symbol_layer { // Layer 4
             display-name = "SYM";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -253,7 +281,7 @@ ZMK_MACRO(dot_spc,
             >;
         };
 
-        num_layer {
+        num_layer { // Layer 5
             display-name = "NUM";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -269,76 +297,61 @@ ZMK_MACRO(dot_spc,
  
         };
 
-        nav_layer {
+        nav_layer { // Layer 6
             display-name = "NAV";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-     X_LT    &kp LA(F4)    ___           ___           ___           &kp C_VOL_UP     X_MT    &kp PG_UP     NAV_BSPC      &kp UP        NAV_DEL       &kp HOME         X_RT
+     X_LT    &kp LA(F4)    ___           ___           ___           ___              X_MT    &kp PG_UP     NAV_BSPC      &kp UP        NAV_DEL       &kp HOME         X_RT
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-     X_LM    &kp LGUI      &kp LALT      &kp LCTRL     &mt LSHFT TAB &kp C_VOL_DN     X_MM    &kp PG_DN     &kp LEFT      &kp DOWN      &kp RIGHT     &kp END          X_RM
+     X_LM    &kp LGUI      &kp LALT      &kp LCTRL     &mt LSHFT TAB ___              X_MM    &kp PG_DN     &kp LEFT      &kp DOWN      &kp RIGHT     &kp END          X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
      X_LB    &kp LC(F4)    TAB_LT        TAB_RT        &kp LS(INS)      XXX           X_MB    &kp INS       ___           ___           ___           XXX              X_RB  
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-     X_LH                                              XXX           ___              X_MH    ___           ___                                                        X_RH
+     X_LH                                              ___           ___              X_MH    ___           ___                                                        X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
 
             >;
 
         };
 
-        fun_layer {
+        fun_layer { // Layer 7
             display-name = "FUN";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           X_MT    &kp CREDO     &kp CCOPY     &kp C_VOL_UP  XXX           XXX              X_RT                                                             
+    X_LT     &kp F1        &kp F2        &kp F3        &kp F4        &kp F5           X_MT    XXX           XXX           &kp C_VOL_UP  XXX           &kp PSCRN        X_RT
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LM     &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     &kp F11          X_MM    &kp CUNDO     &kp CPASTE    &kp C_VOL_DN  XXX           XXX              X_RM
+    X_LM     &kp LGUI      &kp LALT      &kp LCTRL     &kp LSHFT     &kp HYPR         X_MM    XXX           XXX           &kp C_VOL_DN  XXX           XXX              X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LB     &kp F6        &kp F7        &kp F8        &kp F9        &kp F10          X_MB    &kp CAPS      &kp C_PREV    &kp C_PP      &kp C_NEXT    &to SYS          X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               XXX           ___              X_MH    ___           XXX                                                        X_RH                            
+    X_LH                                               ___           ___              X_MH    &kp F11       &kp F12                                                    X_RH                            
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
 
         };
 
-        sys_layer {
+        sys_layer { // Layer 8 
             display-name = "SYS";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     XXX           XXX           XXX           &out OUT_BLE  &out OUT_USB     X_MT    &bt BT_PRV    &bt BT_NXT    XXX           XXX           &studio_unlock   X_RT                                                         
+    X_LT     &bt BT_CLR_ALL XXX           XXX          &out OUT_USB  &out OUT_BLE     X_MT    XXX           XXX           XXX           XXX           &studio_unlock   X_RT
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LM     &kp C_PWR     XXX           XXX           &kp C_BRI_INC XXX              X_MM    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4     X_RM
+    X_LM     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4     X_MM    XXX           XXX           XXX           &to GME       &to COLTYPE      X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LB     &bt BT_CLR    XXX           XXX           &kp C_BRI_DEC XXX              X_MB    OFF           ON            XXX           &to COL_DH    &to DEF          X_RB
+    X_LB     &bt BT_CLR    &bt BT_PRV    &bt BT_NXT    XXX           &sys_reset       X_MB    &sys_reset    XXX           XXX           &to COL_DH    &to DEF          X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               XXX           ___              X_MH    ___           XXX                                                        X_RH                            
-/* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
-            >;
-
-        };
-        overcooked_layer {
-            display-name = "OVERCOOKED";
-            bindings = <
-/* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     &kp Q         &kp W         &kp E         &kp R         &kp T            X_MT    &kp Y         &kp U         &kp I         &kp O         &kp P            X_RT 
-/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LM     &kp A         &kp S         &kp D         &kp F         &kp G            X_MM    &kp H         &kp J         &kp K         &kp L         &kp SEMI         X_RM
-/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
-/* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               &kp SPC       &kp RET          X_MH    SMART_NUM     &smrt_shft                                                 X_RH
+    X_LH                                               ___           &bootloader      X_MH    &bootloader   XXX                                                        X_RH 
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
-        extra_layer_1 {
+        extra_layer_1 { // Layer 9 
             status = "reserved";
            // display-name = "EXT1";
            // bindings = <
 
            // >;
         };
-        extra_layer_2 {
+        extra_layer_2 { // Layer 10
             status = "reserved";
             // display-name = "EXT2";
             // bindings = <

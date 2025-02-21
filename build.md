@@ -13,7 +13,8 @@ For the left half:
 # Windows
 west build -d build/left -b orca_left -- -DZMK_CONFIG="C:/Users/Hugh/projects/orca-zmk-config"
 # Linux (Arch) (without ZMK Studio Support)
-west build -p -d build/left -b orca_left -- -DZMK_CONFIG="/home/hug/projects/zmk-configs/orca-zmk-config" -DZMK_EXTRA_MODULES="/home/hug/projects/zmk-configs/zmk-includes"
+## Left Half
+west build -p -d build/left -b orca_left -- -DZMK_CONFIG="${HOME}/projects/orca-zmk-config" -DZMK_EXTRA_MODULES="${HOME}/projects/zmk-extra-modules/zmk-auto-layer;${HOME}/projects/zmk-extra-modules/zmk-helpers;${HOME}/projects/zmk-extra-modules/zmk-includes;${HOME}/projects/zmk-extra-modules/zmk-leader-key"
 ## EXTERNAL MODULES
 
 This config requires the following ext modules:
