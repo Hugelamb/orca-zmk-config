@@ -66,15 +66,17 @@ MAKE_HR_GUI(hgl, &kp, &kp,KEYS_R THUMBS) // left-hand GUI
 MAKE_HR_GUI(hgr, &kp, &kp,KEYS_L THUMBS) // right-hand GUI
 
 // Layer defines
+
 #define DEF 0
-#define COL_DH 1
-#define GME 2       // Gaming Layer, QWERTY with home row mods disabled.
-#define COLTYPE 3   // Colemak DH Gaming Layer for Epistory typing tool.
-#define SYM 4       // Commonly used symbols
-#define NUM 5
-#define NAV 6       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
-#define FUN 7       // F keys, print screen, insert, etc.
-#define SYS 8       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
+#define JAP 1
+#define COL_DH 2
+#define GME 3       // Gaming Layer, QWERTY with home row mods disabled.
+#define COLTYPE 4   // Colemak DH Gaming Layer for Epistory typing tool.
+#define SYM 5       // Commonly used symbols
+#define NUM 6
+#define NAV 7       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
+#define FUN 8       // F keys, print screen, insert, etc.
+#define SYS 9       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
 // #define MOU 6
 // Conditional layer change
 ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
@@ -127,7 +129,7 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 #include "zmk-includes/leaders.dtsi"
 #include "extra_keys.h"
 #include "zmk-includes/extra_defines.h"
-
+#include "zmk-includes/japanese.dtsi"
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
 #define SMART_NUM &smart_num NUM 0
@@ -149,6 +151,10 @@ ZMK_MOD_MORPH(bs_del,
     keep-mods = <MOD_RSFT>;
 )
 
+// separate left/right shift capsword commands
+
+// japanese kana/hiragana thumb shift keys
+//left shift
 ZMK_MOD_MORPH(smrt_shft,
     bindings = <&sk LSFT>, <&caps_word>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
@@ -209,8 +215,8 @@ ZMK_MACRO(dot_spc,
     keymap {
         compatible = "zmk,keymap";
         default_layer { // Layer 0
-            display-name = "DEF"; 
-            bindings = <
+                    display-name = "DEF"; 
+                    bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
     X_LT     &kp Q         &kp W         &kp E         &kp R         &kp T            X_MT    &kp Y         &kp U         &kp I         &kp O         &kp P            X_RT                                                         
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
@@ -220,10 +226,24 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
     X_LH                                               &lt NAV SPACE &lt SYM RET      X_MH    SMART_NUM     &smrt_shft                                                 X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
+                    >;
+                };
+        jap_hiragana_layer { // Layer 1 
+            display-name = "HIRAGANA"; 
+            bindings = <
+/* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
+    X_LT     &hg_period__a &hg_ka_e      &hg_ta_ri     &hg_ko__ya    &kp T            X_MT    &kp Y         &kp U         &kp I         &kp O         &kp P            X_RT                                                         
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LM     &hgl LGUI A   &hml LALT S   &hml LCTRL D  &hml LSHFT F  &hml HYPR G      X_MM    &hmr HYPR H   &hmr RSHFT J  &hmr LCTRL K  &hmr LALT L   &hgr LGUI SEMI   X_RM
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LB     &kp Z         &kp X         &kp C         &kp V         &kp B            X_MB    &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH         X_RB
+/* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
+    X_LH                                               &lt NAV SPACE &lt SYM RET      X_MH    &sk LSFT      &sk RSFT                                                   X_RH
+/* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
 
-        cole_layer { // Layer 1
+        cole_layer { // Layer 2
             display-name = "COL_DH";    // Colemak mod DH keymap
 			bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -237,7 +257,7 @@ ZMK_MACRO(dot_spc,
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
     		>;
         };
-        gaming_layer { // Layer 2
+        gaming_layer { // Layer 3
             display-name = "GME"; 
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -251,7 +271,7 @@ ZMK_MACRO(dot_spc,
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
-        colemak_typing_layer { // Layer 3
+        colemak_typing_layer { // Layer 4
             display-name = "EPISTORY";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -266,7 +286,7 @@ ZMK_MACRO(dot_spc,
     		>;
         };
 
-        symbol_layer { // Layer 4
+        symbol_layer { // Layer 5
             display-name = "SYM";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -281,7 +301,7 @@ ZMK_MACRO(dot_spc,
             >;
         };
 
-        num_layer { // Layer 5
+        num_layer { // Layer 6
             display-name = "NUM";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -297,7 +317,7 @@ ZMK_MACRO(dot_spc,
  
         };
 
-        nav_layer { // Layer 6
+        nav_layer { // Layer 7
             display-name = "NAV";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -314,7 +334,7 @@ ZMK_MACRO(dot_spc,
 
         };
 
-        fun_layer { // Layer 7
+        fun_layer { // Layer 8
             display-name = "FUN";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -330,11 +350,11 @@ ZMK_MACRO(dot_spc,
 
         };
 
-        sys_layer { // Layer 8 
+        sys_layer { // Layer 9 
             display-name = "SYS";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     &bt BT_CLR_ALL XXX           XXX          &out OUT_USB  &out OUT_BLE     X_MT    XXX           XXX           XXX           XXX           &studio_unlock   X_RT
+    X_LT     &bt BT_CLR_ALL XXX           XXX          &out OUT_USB  &out OUT_BLE     X_MT    XXX           XXX           XXX           &to JAP       &studio_unlock   X_RT
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LM     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4     X_MM    XXX           XXX           XXX           &to GME       &to COLTYPE      X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
@@ -344,14 +364,14 @@ ZMK_MACRO(dot_spc,
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
             >;
         };
-        extra_layer_1 { // Layer 9 
+        extra_layer_1 { // Layer 10 
             status = "reserved";
            // display-name = "EXT1";
            // bindings = <
 
            // >;
         };
-        extra_layer_2 { // Layer 10
+        extra_layer_2 { // Layer 11
             status = "reserved";
             // display-name = "EXT2";
             // bindings = <
