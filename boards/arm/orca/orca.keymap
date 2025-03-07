@@ -12,7 +12,10 @@
 #include <dt-bindings/zmk/outputs.h>
 
 // non-standard modules
+
+#include "input.h"    // Japanese input module behaviors-kana
 #define HOST_OS 1
+
 #include "zmk-includes/helper.h"
 #include "zmk-includes/34.h"
 #include <behaviors/num_word.dtsi>  // add num_word behaviour by urob, from https://github.com/urob/zmk-auto-layer.git repository
@@ -69,15 +72,16 @@ MAKE_HR_GUI(hgr, &kp, &kp,KEYS_L THUMBS) // right-hand GUI
 // Layer defines
 
 #define DEF 0
-#define JAP 1
-#define COL_DH 2
-#define GME 3       // Gaming Layer, QWERTY with home row mods disabled.
-#define COLTYPE 4   // Colemak DH Gaming Layer for Epistory typing tool.
-#define SYM 5       // Commonly used symbols
-#define NUM 6
-#define NAV 7       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
-#define FUN 8       // F keys, print screen, insert, etc.
-#define SYS 9       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
+#define HIR 1       // Hiragana layer (Nicola Thumb shift)
+#define KAT 2       // Katakana layer
+#define COL_DH 3
+#define GME 4       // Gaming Layer, QWERTY with home row mods disabled.
+#define COLTYPE 5   // Colemak DH Gaming Layer for Epistory typing tool.
+#define SYM 6       // Commonly used symbols
+#define NUM 7
+#define NAV 8       // arrow keys, PGUP/PGDN, back, forward, window swappers, 
+#define FUN 9       // F keys, print screen, insert, etc.
+#define SYS 10       // Board related functions, BT profiles, reset, bootloader, ext power cutoff.
 // #define MOU 6
 // Conditional layer change
 ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
@@ -130,7 +134,7 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 #include "zmk-includes/leaders.dtsi"
 #include "extra_keys.h"
 #include "zmk-includes/extra_defines.h"
-#include "zmk-includes/japanese.dtsi"
+#include "nicola.dtsi"
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
 #define SMART_NUM &smart_num NUM 0
@@ -155,6 +159,10 @@ ZMK_MOD_MORPH(bs_del,
 // separate left/right shift capsword commands
 
 // japanese kana/hiragana thumb shift keys
+ZMK_MOD_MORPH(ret_morph,
+  bindings = <&tog KAT>,<&kp RET>;
+  mods = <(MOD_LSFT)>;
+)
 //left shift
 ZMK_MOD_MORPH(smrt_shft,
     bindings = <&sk LSFT>, <&caps_word>;
@@ -229,8 +237,8 @@ ZMK_MACRO(dot_spc,
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
                     >;
                 };
-            jap_nicola_layer { // Layer 1
-                    display-name = "nihongo";//"にはんご"; // = nihongo (japanese)
+            jap_nicola_layer_1 { // Layer 1
+                    display-name = "hiragana";//"にはんご"; // = nihongo (japanese)
 /* format is (default, left shift, right shift)
   ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
               
@@ -243,17 +251,41 @@ ZMK_MACRO(dot_spc,
 */
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     &lt4          &lt3          &lt2          &lt1          &lt0             X_MT    &rt0          &rt1          &rt2          &rt3          &rt4             X_RT 
+    X_LT     &ja_h_lt4     &ja_h_lt3     &ja_h_lt2     &ja_h_lt1     &ja_h_lt0        X_MT    &ja_h_rt0     &ja_h_rt1     &ja_h_rt2     &ja_h_rt3     &ja_h_rt4        X_RT 
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LM     &lm4          &lm3          &lm2          &lm1          &lm0             X_MM    &rm0          &rm1          &rm2          &rm3          &rm4             X_RM
+    X_LM     &ja_h_lm4     &ja_h_lm3     &ja_h_lm2     &ja_h_lm1     &ja_h_lm0        X_MM    &ja_h_rm0     &ja_h_rm1     &ja_h_rm2     &ja_h_rm3     &ja_h_rm4        X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
-    X_LB     &lb4          &lb3          &lb2          &lb1          &lb0             X_MB    &rb0          &rb1          &rb2          &rb3          &rb4             X_RB
+    X_LB     &ja_h_lb4     &ja_h_lb3     &ja_h_lb2     &ja_h_lb1     &ja_h_lb0        X_MB    &ja_h_rb0     &ja_h_rb1     &ja_h_rb2     &ja_h_rb3     &ja_h_rb4        X_RB
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-    X_LH                                               &lt NAV SPACE &lt SYM RET      X_MH    &sk LSHFT      &sk RSHFT                                                 X_RH
+    X_LH                                               &lt NAV SPACE &sk LSHFT        X_MH    &sk RSHFT     &ret_morph                                                 X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
                 >;
         };
-              cole_layer { // Layer 2
+            jap_nicola_layer_2 { // Layer 2
+                    display-name = "katakana";//"にはんご"; // = nihongo (japanese)
+/* format is (default, left shift, right shift)
+  ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮
+              
+  ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+            (。, ,ぁ)     (か,が,え)    (り,だ,)      (こ,ご,ゃ)    (さ,ざ,れ)               (ら,ぱ,よ)    (ち,ぢ,に)    (く,ぐ,る)    (つ,づ,ま)    (, ,ぴ,ぇ)      (、)
+  ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+            (う, , を)    (し,じ,あ)    (て,で,な)    (け,げ,ゅ)    (せ,ぜ,も)               (は,ば,み)    (と,ど,お)    (き,ぎ,の)    (い,ぽ,ょ)    (ん, ,っ)
+  ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤
+            (., , ぅ)     (ひ,び,ー)    (す,ず,ろ)    (ふ,ぶ,や)    (へ,べ,ぃ)               (め,ぷ,ぬ)    (そ,ぞ,ゆ)    (ね,ぺ,む)    (ほ,ぼ,わ)    (・, ,ぉ)
+*/
+            bindings = <
+/* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
+    X_LT     &ja_k_lt4     &ja_k_lt3     &ja_k_lt2     &ja_k_lt1     &ja_k_lt0        X_MT    &ja_k_rt0     &ja_k_rt1     &ja_k_rt2     &ja_k_rt3     &ja_k_rt4        X_RT 
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LM     &ja_k_lm4     &ja_k_lm3     &ja_k_lm2     &ja_k_lm1     &ja_k_lm0        X_MM    &ja_k_rm0     &ja_k_rm1     &ja_k_rm2     &ja_k_rm3     &ja_k_rm4        X_RM
+/* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
+    X_LB     &ja_k_lb4     &ja_k_lb3     &ja_k_lb2     &ja_k_lb1     &ja_k_lb0        X_MB    &ja_k_rb0     &ja_k_rb1     &ja_k_rb2     &ja_k_rb3     &ja_k_rb4        X_RB
+/* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
+    X_LH                                               &lt NAV SPACE &sk LSHFT        X_MH    &sk RSHFT     &ret_morph                                                 X_RH
+/* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
+                >;
+        };
+              cole_layer { // Layer 3
             display-name = "COL_DH";    // Colemak mod DH keymap
 			bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
@@ -337,7 +369,7 @@ ZMK_MACRO(dot_spc,
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
      X_LB    &kp LC(F4)    TAB_LT        TAB_RT        &kp LS(INS)      XXX           X_MB    &kp INS       ___           ___           ___           XXX              X_RB  
 /* ├──────┤ ╰─────────────┼─────────────┴─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┴───────────────────────────╯ ├──────┤ */
-     X_LH                                              ___           ___              X_MH    ___           ___                                                        X_RH
+     X_LH                                              ___           ___              X_MH    ___           &to HIR                                                    X_RH
 /* ╰──────╯                                           ╰─────────────┴─────────────╯ ╰──────╯ ╰─────────────┴─────────────╯                                           ╰──────╯ */
 
             >;
@@ -364,7 +396,7 @@ ZMK_MACRO(dot_spc,
             display-name = "SYS";
             bindings = <
 /* ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮ ╭──────╮ */
-    X_LT     &bt BT_CLR_ALL XXX           XXX          &out OUT_USB  &out OUT_BLE     X_MT    XXX           XXX           XXX           &to JAP       &studio_unlock   X_RT
+    X_LT     &bt BT_CLR_ALL XXX           XXX          &out OUT_USB  &out OUT_BLE     X_MT    XXX           XXX           XXX           &to HIR       &studio_unlock   X_RT
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
     X_LM     &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4     X_MM    XXX           XXX           XXX           &to GME       &to COLTYPE      X_RM
 /* ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤ ├──────┤ */
