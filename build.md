@@ -17,7 +17,7 @@ west build -d build/left -b orca_left -- -DZMK_CONFIG="C:/Users/Hugh/projects/or
 `west build -p -d build/left -b orca_left -- -DZMK_CONFIG="${HOME}/projects/orca-zmk-config" -DZMK_EXTRA_MODULES="${HOME}/projects/zmk-extra-modules/zmk-auto-layer;${HOME}/projects/zmk-extra-modules/zmk-helpers;${HOME}/projects/zmk-extra-modules/zmk-includes;${HOME}/projects/zmk-extra-modules/zmk-leader-key"`
 
 
-west build -d build/orca/left -b orca_left -- -DZMK_CONFIG="${HOME}/projects/orca-zmk-config" -DZMK_EXTRA_MODULES="${HOME}/projects/zmk-extra-modules/auto-layer;${HOME}/projects/zmk-extra-modules/helpers;${HOME}/projects/zmk-extra-modules/includes;${HOME}/projects/zmk-extra-modules/leader-key;${HOME}/projects/zmk-extra-modules/behaviors-kana"
+`west build -d build/orca/left -b orca_left -- -DZMK_CONFIG="${HOME}/projects/orca-zmk-config" -DZMK_EXTRA_MODULES="${HOME}/projects/zmk-extra-modules/auto-layer;${HOME}/projects/zmk-extra-modules/helpers;${HOME}/projects/zmk-extra-modules/includes;${HOME}/projects/zmk-extra-modules/leader-key;${HOME}/projects/zmk-extra-modules/behaviors-kana"`
 ## EXTERNAL MODULES
 
 This config requires the following ext modules:
