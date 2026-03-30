@@ -1,3 +1,5 @@
 **/cmd_west.txt
 **.md
 **/keymap_drawer_files/
+
+.zmk/
