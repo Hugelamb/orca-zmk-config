@@ -135,7 +135,7 @@ ZMK_CONDITIONAL_LAYER(fun, NAV SYM, FUN)  // NAV + SYM => FUN
 #include "zmk-includes/leaders.dtsi"
 #include "extra_keys.h"
 #include "zmk-includes/extra_defines.h"
-#include "nicola.dtsi"
+//#include "nicola.dtsi"
 
 // tap: num-word | double-tap: sticky num-layer | hold: num-layer
 #define SMART_NUM &smart_num NUM 0
@@ -196,13 +196,13 @@ ZMK_MACRO(dot_spc,
     bindings = <&kp DOT &kp SPACE &sk LSHFT>;
 )
 
-ZMK_HOLD_TAP(cjk_spc,
-  flavor = "balanced";
-  tapping-term-ms = <200>;
-  quick-tap-ms = <QUICK_TAP_MS>;
-  bindings = <&mo>, <&ideo_spc>; // requires inclusion of nicola.dtsi from behaviors-kana module
-  )
-THMB_MACRO(ideo_spc, &kp N3 &kp N0 &kp N0 &kp N0)
+//ZMK_HOLD_TAP(cjk_spc,
+//  flavor = "balanced";
+//  tapping-term-ms = <200>;
+//  quick-tap-ms = <QUICK_TAP_MS>;
+//  bindings = <&mo>, <&ideo_spc>; // requires inclusion of nicola.dtsi from behaviors-kana module
+//  )
+//THMB_MACRO(ideo_spc, &kp N3 &kp N0 &kp N0 &kp N0)
 / {
    // behaviors {
    //     skapp: sticky_key_app_switcher {
