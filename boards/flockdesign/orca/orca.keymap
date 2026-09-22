@@ -13,7 +13,7 @@
 
 // non-standard modules
 
-#include "input.h"    // Japanese input module behaviors-kana
+//#include "input.h"    // Japanese input module behaviors-kana
 #define HOST_OS 1
 
 #include "zmk-includes/helper.h"
