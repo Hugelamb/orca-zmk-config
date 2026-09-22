@@ -1,0 +1,17 @@
+file_format: "1"
+id: orca
+name: Orca
+# url: 
+type: board
+arch: arm
+features:
+  - keys
+  - display
+outputs:
+  - usb
+  - ble
+revisions:
+  - 1.0.0
+siblings:
+  - orca_left//zmk
+  - orca_right//zmk

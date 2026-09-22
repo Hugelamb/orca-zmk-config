@@ -1,0 +1,26 @@
+boards:
+  - name: orca_left
+    vendor: flockdesign
+    socs:
+      - name: nrf52840
+        variants:
+          - name: zmk 
+    revision:
+      format: major.minor.patch
+      default: 1.0.0
+      exact: false
+      revisions:
+        - name: 1.0.0
+  - name: orca_right
+    vendor: flockdesign
+    socs:
+      - name: nrf52840
+        variants:
+          - name: zmk 
+    revision:
+      format: major.minor.patch
+      default: 1.0.0
+      exact: false
+      revisions:
+        - name: 1.0.0
+
