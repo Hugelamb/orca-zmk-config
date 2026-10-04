@@ -204,22 +204,11 @@ ZMK_MACRO(dot_spc,
 //  )
 //THMB_MACRO(ideo_spc, &kp N3 &kp N0 &kp N0 &kp N0)
 / {
-   // behaviors {
-   //     skapp: sticky_key_app_switcher {
-   //         compatible = "zmk,behaviour-sticky-key";
-   //         #binding-cells = <1>;
-   //         bindings = <&kp>;
-   //         release-after-ms = <900>;
-   //     };
-   // };
-
-    // macros
-    // macros {
-
-    // };
-
-
-    // keymap visual
+    // this section is redundant for zmk purposes, but informs the keymap drawer application as to the correct layout name to search for
+    chosen {
+      zmk,physical-layout = &orca_34key_layout;
+    };
+      // keymap visual
      /* 
           ╭───────────────────────╮         ╭───────────────────────╮
           │      0   1   2   3   4│         │ 5   6   7   8   9     │
